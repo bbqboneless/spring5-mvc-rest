@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService{
     public CustomerDTO getCustomerById(Long id) {
         return customerRepository.findById(id)
                 .map(customerMapper::customerToCustomerDTO)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(ResourceNotFoundException::new);
     }
     @Override
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO){
@@ -67,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService{
             CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
             returnDTO.setCustomer_url("/api/v1/customer/" + id);
             return returnDTO;
-        }).orElseThrow(RuntimeException::new);
+        }).orElseThrow(ResourceNotFoundException::new);
     }
     @Override
     public void deleteCustomerById(Long id) {
