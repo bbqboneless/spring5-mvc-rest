@@ -53,6 +53,7 @@ public class VendorControllerTest extends AbstractRestControllerTest{
         when(vendorService.getAllVendors()).thenReturn(Arrays.asList(vendor1, vendor2));
 
         mockMvc.perform(get("/api/v1/vendors/")
+                        .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vendors", hasSize(2)));
@@ -68,6 +69,7 @@ public class VendorControllerTest extends AbstractRestControllerTest{
         when(vendorService.getVendorById(anyLong())).thenReturn(vendor1);
 
         mockMvc.perform(get("/api/v1/vendors/1")
+                        .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name",equalTo("La California")));
@@ -86,6 +88,7 @@ public class VendorControllerTest extends AbstractRestControllerTest{
         when(vendorService.createNewVendor(vendor1)).thenReturn(returnDTO);
 
         mockMvc.perform(post("/api/v1/vendors/")
+                        .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendor1)))
                 .andExpect(status().isCreated())
@@ -106,6 +109,7 @@ public class VendorControllerTest extends AbstractRestControllerTest{
         when(vendorService.updateVendor(anyLong(),any(VendorDTO.class))).thenReturn(returnDTO);
 
         mockMvc.perform(put("/api/v1/vendors/1")
+                        .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendor1)))
                 .andExpect(status().isOk())
@@ -116,6 +120,7 @@ public class VendorControllerTest extends AbstractRestControllerTest{
     @Test
     public void testDeleteVendor() throws Exception {
         mockMvc.perform(delete("/api/v1/vendors/1")
+                        .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
